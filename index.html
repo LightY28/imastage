@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="css/style.css">
+  <title>Mon blog</title>
+</head>
+<body>
+  <header>
+      <h1>Blog Dynammique</h1>
+  </header>
+  <section>
+    <div class="container">
+    </div>
+  </section>
+</body>
+<script>
+  const container= document.querySelector('div.container');
+  
+  // creer une fonction qui va creer les cards
+  function creatCell(result){
+    const data = result.slice(0,30)
+    
+    // un boucle qui affiche tous les elements
+    
+    data.forEach(element => {
+      const div = document.createElement('div');
+      // je creer une class card et apres j'ajoute la class card a la div 
+      div.classList.add('card');
+      // je creer un innerHTML pour afficher les elements
+      div.innerHTML= `
+            <h1><strong>${element.title}</strong></h1> <br>
+            <p>
+               </p>
+            ${element.body}
+            
+      `; 
+      console.log('foreach execute')
+      container.appendChild(div);
+    });
+    console.log(data)
+
+  }
+  
+  async function table() {
+    // je creer une variable qui va faire un recupere les donnees de l'api
+    const res = await fetch('https://jsonplaceholder.typicode.com/posts');
+    try{
+      console.log('dans le try')
+    if (!res.ok) {
+      console.log(res)
+      throw new Error("no fetch");
+      console.log('vide')
+      
+    }
+    const resultat = await res.json()
+    creatCell(resultat);
+    console.log(resultat);
+
+   } catch{
+      console.log(Error);
+      console.log("resultat erreur");
+    }
+    
+  }
+ 
+  table();
+</script>
+</html>
